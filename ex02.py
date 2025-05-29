@@ -1,37 +1,21 @@
-from collections import defaultdict
-
-def min_subarray_covering_alphabet(seq):
-    required = set(range(1, 27))  #  только до 26
-    count = defaultdict(int)
-    formed = 0
-    left = 0
+def find_min_subsequence_naive(seq):
+    n = len(seq)
+    alphabet_set = set(range(1, 27))  # множество от 1 до 26
     min_len = float('inf')
-    min_window = (-1, -1)  # границы окна
+    result = []
 
-    for right in range(len(seq)):
-        num = seq[right]
-        if 1 <= num <= 26:
-            if count[num] == 0:
-                formed += 1
-            count[num] += 1
-
-        while formed == 26:
-            if right - left + 1 < min_len:
-                min_len = right - left + 1
-                min_window = (left, right)
-
-            num_left = seq[left]
-            if 1 <= num_left <= 26:
-                count[num_left] -= 1
-                if count[num_left] == 0:
-                    formed -= 1
-            left += 1
-
-    if min_len == float('inf'):
-        return "NONE", []
-
-    start, end = min_window
-    return min_len, seq[start:end + 1]
+    for start in range(n):
+        seen = set()
+        for end in range(start, n):
+            num = seq[end]
+            if 1 <= num <= 26:
+                seen.add(num)
+            if seen == alphabet_set:
+                if (end - start + 1) < min_len:
+                    min_len = end - start + 1
+                    result = seq[start:end + 1]
+                break  # уже нашли все 26 — дальше не имеет смысла
+    return (min_len if result else "NONE", result)
 
 def main():
     try:
@@ -43,10 +27,10 @@ def main():
             print(f"ожидалось {n} чисел, получено {len(seq)}")
             return
 
-        length, subarray = min_subarray_covering_alphabet(seq)
+        length, subarray = find_min_subsequence_naive(seq)
 
         if length == "NONE":
-            print("\n   подходящая подпоследовательность не найдена: NONE")
+            print("\n NONE")
         else:
             print(f"\n длина минимальной подпоследовательности: {length}")
 
