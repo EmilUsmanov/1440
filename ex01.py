@@ -1,6 +1,6 @@
 from typing import List, Tuple
 
-def min_points_to_cover_segments(segments: List[Tuple[int, int]]) -> List[int]:
+def functionn(segments: List[Tuple[int, int]]) -> List[int]:
     sorted_segments = sorted(segments, key=lambda seg: seg[1])
 
     points = []
@@ -24,6 +24,6 @@ if __name__ == "__main__":
         x, y = map(int, input().split())
         segments.append((x, y))
 
-    result = min_points_to_cover_segments(segments)
+    result = functionn(segments)
     print("минимальное количество точек:", len(result))
     print("сами точки:", result)

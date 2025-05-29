@@ -1,4 +1,4 @@
-def find_min_subsequence_naive(seq):
+def functionn(seq):
     n = len(seq)
     alphabet_set = set(range(1, 27))  # множество от 1 до 26
     min_len = float('inf')
@@ -27,7 +27,7 @@ def main():
             print(f"ожидалось {n} чисел, получено {len(seq)}")
             return
 
-        length, subarray = find_min_subsequence_naive(seq)
+        length, subarray = functionn(seq)
 
         if length == "NONE":
             print("\n NONE")
@@ -35,7 +35,7 @@ def main():
             print(f"\n длина минимальной подпоследовательности: {length}")
 
     except ValueError:
-        print("ошибка: убедитесь, что вводите только целые числа.")
+        print("только целые числа.")
 
 if __name__ == "__main__":
     main()
